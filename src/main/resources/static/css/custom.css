@@ -1,0 +1,26 @@
+@CHARSET "ISO-8859-1";
+
+th.dt-center, td.dt-center {
+	text-align: center;
+}
+
+.btn-dp-white {
+	min-width: 80px;
+	margin: 0px 0px 8px 4px;
+	background-color: #fff !important;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#fff),
+		to(#fff));
+	background-image: linear-gradient(to bottom, #fff, #fff);
+	border: 1px solid #2A3F54 !important;
+	font-family: bukrabold;
+	font-size: 10px;
+	color: #2A3F54 !important;
+	outline: none;
+	padding: .320rem 1.40rem !important;
+	animation: blinker 2s linear infinite;
+}
+
+	@keyframes blinker { 50% {
+		opacity: 0;
+	}
+}

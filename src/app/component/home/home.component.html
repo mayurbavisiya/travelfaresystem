@@ -1,0 +1,200 @@
+<div class="d-flex" id="wrapper">
+    <!-- Sidebar-->
+    <div class="border-end bg-white" id="sidebar-wrapper">
+        <div class="sidebar-heading border-bottom bg-light">Travel System</div>
+        <div class="list-group list-group-flush">
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" 
+            [routerLink]="['/swip-card']" routerLinkActive="is-active">Swip Card</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" 
+            [routerLink]="['/travel-history']" routerLinkActive="is-active">Travel History</a>
+        </div>
+    </div>
+    <!-- Page content wrapper-->
+    <div id="page-content-wrapper">
+        <!-- Top navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <div class="container-fluid">
+                <button class="btn btn-primary" id="sidebarToggle">Menu</button>
+                <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button> -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                        <!-- <li class="nav-item active"><a class="nav-link" href="#!">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!">Link</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#!">Action</a>
+                                <a class="dropdown-item" href="#!">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#!">Something else here</a>
+                            </div>
+                        </li> -->
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Page content-->
+        <div class="container-fluid">
+            <h1 class="my-5 text-center">Swip Card</h1>
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <form class="accountForm" [formGroup]="accountForm" id="accountForm">
+                        <div class="row mb-3">
+                          <label for="cardId" class="col-sm-2 col-form-label">Card Id</label>
+                          <div class="col-sm-10">
+                            <input type="email" class="form-control" id="cardId" formControlName="cardId" placeholder="Card Id">
+                            <div *ngIf="(f.cardId.dirty || f.cardId.touched) && f.cardId.errors" class="text-danger">
+                                <div *ngIf="f.cardId.errors.required">Card Id is required.</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label for="entryStation" class="col-sm-2 col-form-label">Station</label>
+                          <div class="col-sm-10">
+                            <select class="form-select" id="entryStation" formControlName="entryStation">
+                                <option value="" selected disabled>Choose...</option>
+                                <option *ngFor="let station of stationsList" [value]="station.id" [innerHTML]="station.name"></option>
+                              </select>
+                              <div *ngIf="(f.entryStation.dirty || f.entryStation.touched) && f.entryStation.errors" class="text-danger">
+                                <div *ngIf="f.entryStation.errors.required">Station is required.</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="mode" class="col-sm-2 col-form-label">Mode</label>
+                            <div class="col-sm-10">
+                              <select class="form-select" id="mode" formControlName="mode">
+                                    <option value="" selected disabled>Choose...</option>
+                                    <option *ngFor="let mode of modesList" [value]="mode.id" [innerHTML]="mode.name"></option>
+                                </select>
+                                <div *ngIf="(f.mode.dirty || f.mode.touched) && f.mode.errors" class="text-danger">
+                                <div *ngIf="f.mode.errors.required">Mode is required.</div>
+                            </div>
+                            </div>
+                          </div>
+                          <div class="row mb-3">
+                            <label for="mode" class="col-sm-2 col-form-label">&nbsp;</label>
+                            <div class="col-sm-5">
+                                <button type="button" class="btn btn-primary w-100" [disabled]="accountForm.invalid" (click)="onSubmitAccountForm('swipin')"> Swip In </button>
+                            </div>
+                            <div class="col-sm-5">
+                                <button type="button" class="btn btn-primary w-100" [disabled]="accountForm.invalid" (click)="onSubmitAccountForm('swipout')"> Swip Out </button>
+                            </div>
+                          </div>
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+<div class="modal SwipInModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title headline m-0" id="myModalLabel"> Swip In Data </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body pb-4">
+                <div class="mb-3 row">
+                    <label for="availableBalance" class="col-sm-2 col-form-label">Available Balance</label>
+                    <div class="col-sm-10">
+                      <input type="text" readonly class="form-control-plaintext" id="availableBalance" value="${{swipeInResponse.availableBalance}}">
+                    </div>
+                  </div>
+                  <div class="mb-3 row">
+                    <label for="zone" class="col-sm-2 col-form-label">Zone</label>
+                    <div class="col-sm-10">
+                      <input type="text" readonly class="form-control-plaintext" id="zone" value="{{swipeInResponse.zone}}">
+                    </div>
+                  </div>
+                  <div class="mb-3 row">
+                    <label for="entryStation" class="col-sm-2 col-form-label">Entry Station</label>
+                    <div class="col-sm-10">
+                      <input type="text" readonly class="form-control-plaintext" id="entryStation" value="{{swipeInResponse.entryStation}}">
+                    </div>
+                  </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal SwipOutModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title headline m-0" id="myModalLabel">Swip Out Data </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body pb-4">
+                <div class="mb-3 row">
+                    <label for="cardId" class="col-sm-2 col-form-label">CardId</label>
+                    <div class="col-sm-10">
+                      <input type="text" readonly class="form-control-plaintext" id="cardId" value="{{swipeOutResponse.cardId}}">
+                    </div>
+                  </div>
+                  <div class="mb-3 row">
+                    <label for="entryStationName" class="col-sm-2 col-form-label">Entry StationName</label>
+                    <div class="col-sm-10">
+                      <input type="text" readonly class="form-control-plaintext" id="entryStationName" value="{{swipeOutResponse.entryStationName}}">
+                    </div>
+                  </div>
+                  <div class="mb-3 row">
+                    <label for="exitStationName" class="col-sm-2 col-form-label">Exit StationName</label>
+                    <div class="col-sm-10">
+                      <input type="text" readonly class="form-control-plaintext" id="exitStationName" value="{{swipeOutResponse.exitStationName}}">
+                    </div>
+                  </div>
+                  <div class="mb-3 row">
+                    <label for="entryZoneName" class="col-sm-2 col-form-label">Entry Zone Name</label>
+                    <div class="col-sm-10">
+                      <input type="text" readonly class="form-control-plaintext" id="entryZoneName" value="{{swipeOutResponse.entryZoneName}}">
+                    </div>
+                  </div>
+                <div class="mb-3 row">
+                    <label for="exitZoneName" class="col-sm-2 col-form-label">Exit Zone Name</label>
+                    <div class="col-sm-10">
+                      <input type="text" readonly class="form-control-plaintext" id="exitZoneName" value="{{swipeOutResponse.exitZoneName}}">
+                    </div>
+                  </div>
+                  <div class="mb-3 row">
+                    <label for="fare" class="col-sm-2 col-form-label">Fare</label>
+                    <div class="col-sm-10">
+                      <input type="text" readonly class="form-control-plaintext" id="fare" value="${{swipeOutResponse.fare}}">
+                    </div>
+                  </div>
+                  <div class="mb-3 row">
+                    <label for="avaialbleBalance" class="col-sm-2 col-form-label">Avaialble Balance</label>
+                    <div class="col-sm-10">
+                      <input type="text" readonly class="form-control-plaintext" id="avaialbleBalance" value="${{swipeOutResponse.avaialbleBalance}}">
+                    </div>
+                  </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal errorModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title headline m-0" id="myModalLabel">Swip In/Out Error </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body pb-4">
+                <h3>{{responseDescError}}</h3>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-bs-dismiss="modal"> Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
