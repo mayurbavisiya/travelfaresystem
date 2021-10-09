@@ -10,7 +10,10 @@ Go to the travelfaresystem and run TravelFareApplication.java from src/main/java
 
 It will run on 8090 you can change it from application.properties.
 
+You can follow the document to understand the requirements
 
+
+https://github.com/mayurbavisiya/travelfaresystem/blob/master/travelfaresystem/Travelfare.docx
 
 
 
