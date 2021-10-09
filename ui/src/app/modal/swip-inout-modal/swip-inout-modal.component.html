@@ -1,0 +1,102 @@
+<div class="modal" tabindex="-1" role="dialog" *ngIf="swipData?.modalName == 'SwipIn'">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title headline m-0" id="myModalLabel" [innerHTML]="swipData.msgTitle"> </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body pb-4">
+                <div class="mb-3 row">
+                    <label for="availableBalance" class="col-sm-4 col-form-label">Available Balance</label>
+                    <div class="col-sm-4">
+                      <input type="text" readonly class="form-control-plaintext" id="availableBalance" value="${{swipData.data.availableBalance}}">
+                    </div>
+                  </div>
+                  <div class="mb-3 row">
+                    <label for="zone" class="col-sm-4 col-form-label">Zone</label>
+                    <div class="col-sm-4">
+                      <input type="text" readonly class="form-control-plaintext" id="zone" value="{{swipData.data.zone}}">
+                    </div>
+                  </div>
+                  <div class="mb-3 row">
+                    <label for="entryStation" class="col-sm-4 col-form-label">Entry Station</label>
+                    <div class="col-sm-4">
+                      <input type="text" readonly class="form-control-plaintext" id="entryStation" value="{{swipData.data.entryStation}}">
+                    </div>
+                  </div>
+            </div>
+            <div class="modal-footer" *ngIf="swipData.msgOkBtn">
+                <button class="btn btn-primary" (click)="modalClose()" [innerHTML]="swipData.msgOkBtn"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" *ngIf="swipData.modelName == 'SwipOut'">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title headline m-0" id="myModalLabel" [innerHTML]="swipData.msgTitle"> </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body pb-4">
+                <div class="mb-3 row">
+                    <label for="cardId" class="col-sm-4 col-form-label">CardId</label>
+                    <div class="col-sm-4">
+                      <input type="text" readonly class="form-control-plaintext" id="cardId" value="{{swipData.data.cardId}}">
+                    </div>
+                  </div>
+                  <div class="mb-3 row">
+                    <label for="entryStationName" class="col-sm-4 col-form-label">Entry StationName</label>
+                    <div class="col-sm-4">
+                      <input type="text" readonly class="form-control-plaintext" id="entryStationName" value="{{swipData.data.entryStationName}}">
+                    </div>
+                  </div>
+                  <div class="mb-3 row">
+                    <label for="entryZoneName" class="col-sm-4 col-form-label">Entry Zone Name</label>
+                    <div class="col-sm-4">
+                      <input type="text" readonly class="form-control-plaintext" id="entryZoneName" value="{{swipData.data.entryZoneName}}">
+                    </div>
+                  </div>
+                <div class="mb-3 row">
+                    <label for="exitZoneName" class="col-sm-4 col-form-label">Exit Zone Name</label>
+                    <div class="col-sm-4">
+                      <input type="text" readonly class="form-control-plaintext" id="exitZoneName" value="{{swipData.data.exitZoneName}}">
+                    </div>
+                  </div>
+                  <div class="mb-3 row">
+                    <label for="fare" class="col-sm-4 col-form-label">Fare</label>
+                    <div class="col-sm-4">
+                      <input type="text" readonly class="form-control-plaintext" id="fare" value="${{swipData.data.fare}}">
+                    </div>
+                  </div>
+                  <div class="mb-3 row">
+                    <label for="avaialbleBalance" class="col-sm-4 col-form-label">Avaialble Balance</label>
+                    <div class="col-sm-4">
+                      <input type="text" readonly class="form-control-plaintext" id="avaialbleBalance" value="${{swipData.data.avaialbleBalance}}">
+                    </div>
+                  </div>
+            </div>
+            <div class="modal-footer" *ngIf="swipData.msgOkBtn">
+                <button class="btn btn-primary" (click)="modalClose()" [innerHTML]="swipData.msgOkBtn"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" *ngIf="swipData?.modelName=='Error'">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title headline m-0" id="myModalLabel" [innerHTML]="swipData.msgTitle"> </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body pb-4">
+                <h3>{{swipData.responseDesc}}</h3>
+            </div>
+            <div class="modal-footer" *ngIf="swipData.msgOkBtn">
+                <button class="btn btn-primary" (click)="modalClose()" [innerHTML]="swipData.msgOkBtn"></button>
+            </div>
+        </div>
+    </div>
+</div>
